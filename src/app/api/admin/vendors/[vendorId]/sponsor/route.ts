@@ -12,7 +12,7 @@ export async function POST(
 
     // Authentication check
     const session = await getSession(request);
-    if (!session || !session.user) {
+    if (!session || !('user' in session)) {
       return NextResponse.json(
         { error: 'Authentication required', code: 'AUTH_REQUIRED' },
         { status: 401 }
@@ -144,7 +144,7 @@ export async function DELETE(
 
     // Authentication check
     const session = await getSession(request);
-    if (!session || !session.user) {
+    if (!session || !('user' in session)) {
       return NextResponse.json(
         { error: 'Authentication required', code: 'AUTH_REQUIRED' },
         { status: 401 }
