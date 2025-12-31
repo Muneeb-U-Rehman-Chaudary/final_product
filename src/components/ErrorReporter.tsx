@@ -33,16 +33,19 @@ export default function ErrorReporter({ error, reset }: ReporterProps) {
         timestamp: Date.now(),
       });
 
-    const onReject = (e: PromiseRejectionEvent) =>
-      send({
-        type: "ERROR_CAPTURED",
-        error: {
-          message: e.reason?.message ?? String(e.reason),
-          stack: e.reason?.stack,
-          source: "unhandledrejection",
-        },
-        timestamp: Date.now(),
-      });
+      const onReject = (e: PromiseRejectionEvent) => {
+        const reason = e.reason instanceof Error ? e.reason.message : String(e.reason);
+        const stack = e.reason instanceof Error ? e.reason.stack : undefined;
+        send({
+          type: "ERROR_CAPTURED",
+          error: {
+            message: reason,
+            stack: stack,
+            source: "unhandledrejection",
+          },
+          timestamp: Date.now(),
+        });
+      };
 
     const pollOverlay = () => {
       const overlay = document.querySelector("[data-nextjs-dialog-overlay]");
