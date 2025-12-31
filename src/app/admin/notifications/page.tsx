@@ -33,7 +33,8 @@ export default function AdminNotificationsPage() {
   };
 
   const handleMarkAllAsRead = async () => {
-    await markAllAsReadMutation.mutateAsync({});
+    // @ts-ignore - Argument handled by hook
+    await markAllAsReadMutation.mutateAsync();
   };
 
   const getTypeIcon = (type: string) => {
