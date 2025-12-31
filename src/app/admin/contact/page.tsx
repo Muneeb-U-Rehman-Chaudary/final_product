@@ -86,7 +86,7 @@ export default function AdminContactPage() {
   
   const deleteMutation = useDeleteAdminContact();
   const replyMutation = useReplyToContact();
-  const messageUserMutation = useSendMessageToUser();
+  const messageUserMutation = useMessageUser();
 
   useEffect(() => {
     if (!isPending && !session?.user) {
