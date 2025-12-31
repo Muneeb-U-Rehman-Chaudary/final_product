@@ -58,7 +58,7 @@ UserSchema.methods.comparePassword = async function(candidatePassword: string): 
 
 // Session Model
 export interface ISession extends Document {
-  _id: string;
+  _id: any;
   expiresAt: Date;
   token: string;
   createdAt: Date;
@@ -80,7 +80,7 @@ const SessionSchema = new Schema<ISession>({
 
 // Account Model
 export interface IAccount extends Document {
-  _id: string;
+  _id: any;
   accountId: string;
   providerId: string;
   userId: string;
@@ -112,7 +112,7 @@ const AccountSchema = new Schema<IAccount>({
 
 // Verification Model
 export interface IVerification extends Document {
-  _id: string;
+  _id: any;
   identifier: string;
   value: string;
   expiresAt: Date;
@@ -130,7 +130,7 @@ const VerificationSchema = new Schema<IVerification>({
 
 // Product Model
 export interface IProduct extends Document {
-  _id: string;
+  _id: any;
   productId: number;
   title: string;
   description: string;
@@ -199,7 +199,7 @@ ProductSchema.pre('save', async function() {
 
 // Order Model
 export interface IOrder extends Document {
-  _id: string;
+  _id: any;
   orderId: number;
   customerId: string;
   items: Array<{
@@ -256,7 +256,7 @@ OrderSchema.pre('save', async function() {
 
 // Review Model
 export interface IReview extends Document {
-  _id: string;
+  _id: any;
   reviewId: number;
   productId: number;
   customerId: string;
@@ -291,7 +291,7 @@ ReviewSchema.pre('save', async function() {
 
 // Transaction Model
 export interface ITransaction extends Document {
-  _id: string;
+  _id: any;
   transactionId: number;
   vendorId: string;
   orderId?: number;
@@ -332,7 +332,7 @@ TransactionSchema.pre('save', async function() {
 
 // Cart Model
 export interface ICart extends Document {
-  _id: string;
+  _id: any;
   cartId: number;
   userId: string;
   items: Array<{
@@ -361,7 +361,7 @@ CartSchema.pre('save', async function() {
 
 // Notification Model
 export interface INotification extends Document {
-  _id: string;
+  _id: any;
   notificationId: number;
   userId: string;
   type: string;
@@ -392,7 +392,7 @@ NotificationSchema.pre('save', async function() {
 
 // Withdrawal Model
 export interface IWithdrawal extends Document {
-  _id: string;
+  _id: any;
   withdrawalId: number;
   vendorId: string;
   amount: number;
@@ -429,7 +429,7 @@ WithdrawalSchema.pre('save', async function() {
 
 // Sponsorship Request Model
 export interface ISponsorshipRequest extends Document {
-  _id: string;
+  _id: any;
   requestId: number;
   type: 'vendor' | 'product';
   vendorId: string;
@@ -474,7 +474,7 @@ SponsorshipRequestSchema.pre('save', async function() {
 
 // Active Sponsor Model
 export interface IActiveSponsor extends Document {
-  _id: string;
+  _id: any;
   sponsorId: number;
   type: 'vendor' | 'product';
   vendorId: string;
@@ -515,7 +515,7 @@ ActiveSponsorSchema.pre('save', async function() {
 
 // Platform Settings Model
 export interface IPlatformSettings extends Document {
-  _id: string;
+  _id: any;
   settingId: number;
   category: string;
   settings: any;
@@ -540,7 +540,7 @@ PlatformSettingsSchema.pre('save', async function() {
 
 // Contact Message Model
 export interface IContactMessage extends Document {
-  _id: string;
+  _id: any;
   messageId: number;
   name: string;
   email: string;
@@ -598,7 +598,7 @@ export const ContactMessage = (mongoose.models.ContactMessage as Model<IContactM
 
 // Platform Revenue Model
 export interface IPlatformRevenue extends Document {
-  _id: string;
+  _id: any;
   totalEarnings: number;
   totalCommission: number;
   totalSales: number;
