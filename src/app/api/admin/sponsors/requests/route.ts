@@ -32,12 +32,12 @@ export async function GET(request: NextRequest) {
     const db = mongoose.connection.db;
     const usersCollection = db?.collection('users');
     
-    const [vendors, products] = await Promise.all([
-      vendorIds.length > 0 && usersCollection 
-        ? usersCollection.find({ _id: { $in: vendorIds } }).project({ name: 1, email: 1, storeName: 1, image: 1 }).toArray() 
-        : [],
-      productIds.length > 0 ? Product.find({ productId: { $in: productIds } }).select('productId title images').lean() : []
-    ]);
+      const [vendors, products] = await Promise.all([
+        vendorIds.length > 0 && usersCollection 
+          ? usersCollection.find({ _id: { $in: vendorIds as any } }).project({ name: 1, email: 1, storeName: 1, image: 1 }).toArray() 
+          : [],
+        productIds.length > 0 ? Product.find({ productId: { $in: productIds as any } }).select('productId title images').lean() : []
+      ]);
 
     const vendorMap = new Map(vendors.map(v => [v._id.toString(), v]));
     const productMap = new Map(products.map(p => [p.productId, p]));
