@@ -70,18 +70,19 @@ export async function GET(request: NextRequest) {
         const endDate = new Date(sponsor.endDate);
         const daysRemaining = Math.ceil((endDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
 
-        return {
-          id: sponsor.sponsorId,
-          type: sponsor.type,
-          vendor: sponsor.vendorId ? {
-            id: sponsor.vendorId._id.toString(),
-            name: sponsor.vendorId.name,
-            email: sponsor.vendorId.email,
-            storeName: sponsor.vendorId.storeName || null,
-            rating: sponsor.vendorId.rating || 0,
-            totalSales: sponsor.vendorId.totalSales || 0,
-            image: sponsor.vendorId.image || null
-          } : null,
+          const vendorId = sponsor.vendorId as any;
+          return {
+            id: sponsor.sponsorId,
+            type: sponsor.type,
+            vendor: vendorId ? {
+              id: vendorId._id.toString(),
+              name: vendorId.name,
+              email: vendorId.email,
+              storeName: vendorId.storeName || null,
+              rating: vendorId.rating || 0,
+              totalSales: vendorId.totalSales || 0,
+              image: vendorId.image || null
+            } : null,
           product: productData,
           tier: sponsor.tier,
           monthlyFee: sponsor.monthlyFee,
