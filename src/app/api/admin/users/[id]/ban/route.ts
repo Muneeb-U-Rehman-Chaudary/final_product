@@ -93,7 +93,7 @@ export async function POST(
       userId: userId,
       type: 'account_banned',
       message: notificationMessage,
-      link: null,
+      link: undefined,
       read: false,
       createdAt: bannedAt
     });
