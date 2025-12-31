@@ -13,7 +13,7 @@ export async function POST(
 
     // Authenticate and verify admin role
     const session = await getSession(request);
-    if (!session || !session.user) {
+    if (!session || !('user' in session)) {
       return NextResponse.json(
         { error: 'Authentication required', code: 'UNAUTHORIZED' },
         { status: 401 }
