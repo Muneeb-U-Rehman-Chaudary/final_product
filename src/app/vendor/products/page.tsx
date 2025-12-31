@@ -103,13 +103,13 @@ export default function VendorProductsPage() {
                   <TableRow key={product.productId}>
                     <TableCell>
                       <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded bg-muted flex items-center justify-center overflow-hidden">
-                          {product.images && product.images[0] ? (
-                            <img src={product.images[0]} alt="" className="w-full h-full object-cover" />
-                          ) : (
-                            <Package className="h-6 w-6 text-muted-foreground" />
-                          )}
-                        </div>
+                          <div className="w-12 h-12 rounded bg-muted flex items-center justify-center overflow-hidden relative">
+                            {product.images && product.images[0] ? (
+                              <SafeImage src={product.images[0]} alt="" fill className="object-cover" />
+                            ) : (
+                              <Package className="h-6 w-6 text-muted-foreground" />
+                            )}
+                          </div>
                         <div>
                           <p className="font-medium line-clamp-1">{product.title}</p>
                           {product.sponsored && (
