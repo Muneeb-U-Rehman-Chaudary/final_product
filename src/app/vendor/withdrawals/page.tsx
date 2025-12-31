@@ -48,7 +48,7 @@ export default function VendorWithdrawalsPage() {
     withdrawMutation.mutate({ 
       amount, 
       method: "Bank Transfer", // Default or from form if added
-      accountDetails: form.bankDetails 
+      bankDetails: form.bankDetails 
     }, {
       onSuccess: () => {
         setShowRequest(false);
