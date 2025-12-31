@@ -454,6 +454,7 @@ const SponsorshipRequestSchema = new Schema<ISponsorshipRequest>({
   tier: { type: String, enum: ['standard', 'premium'], required: true },
   monthlyFee: { type: Number, required: true },
   commission: { type: Number, required: true },
+  duration: { type: Number, default: 30 },
   status: { 
     type: String, 
     enum: ['pending', 'approved', 'rejected'],
