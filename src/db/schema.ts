@@ -222,6 +222,74 @@ export const withdrawals = sqliteTable("withdrawals", {
   notes: text("notes"),
 });
 
+// Contact messages table
+export const contactMessages = sqliteTable("contact_messages", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  subject: text("subject").notNull(),
+  message: text("message").notNull(),
+  status: text("status", { enum: ["pending", "resolved"] })
+    .$defaultFn(() => "pending")
+    .notNull(),
+  userId: text("user_id").references(() => user.id, { onDelete: "set null" }),
+  reply: text("reply"),
+  repliedAt: integer("replied_at", { mode: "timestamp" }),
+  repliedBy: text("replied_by").references(() => user.id, { onDelete: "set null" }),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .$defaultFn(() => new Date())
+    .notNull(),
+});
+
+// Sponsorship requests table
+export const sponsorshipRequests = sqliteTable("sponsorship_requests", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  vendorId: text("vendor_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  productId: integer("product_id").references(() => products.id, { onDelete: "cascade" }),
+  type: text("type", { enum: ["vendor", "product"] }).notNull(),
+  tier: text("tier", { enum: ["standard", "premium"] }).notNull(),
+  monthlyFee: real("monthly_fee").notNull(),
+  commission: real("commission"),
+  duration: integer("duration").$defaultFn(() => 30),
+  status: text("status", { enum: ["pending", "approved", "rejected"] })
+    .$defaultFn(() => "pending")
+    .notNull(),
+  message: text("message"),
+  requestDate: integer("request_date", { mode: "timestamp" })
+    .$defaultFn(() => new Date())
+    .notNull(),
+  processedDate: integer("processed_date", { mode: "timestamp" }),
+  processedBy: text("processed_by"),
+  adminNotes: text("admin_notes"),
+});
+
+// Active sponsors table
+export const activeSponsors = sqliteTable("active_sponsors", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  vendorId: text("vendor_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  productId: integer("product_id").references(() => products.id, { onDelete: "cascade" }),
+  type: text("type", { enum: ["vendor", "product"] }).notNull(),
+  tier: text("tier").notNull(),
+  monthlyFee: real("monthly_fee").notNull(),
+  startDate: integer("start_date", { mode: "timestamp" }).notNull(),
+  endDate: integer("end_date", { mode: "timestamp" }).notNull(),
+  status: text("status", { enum: ["active", "expired", "cancelled"] })
+    .$defaultFn(() => "active")
+    .notNull(),
+  autoRenew: integer("auto_renew", { mode: "boolean" }).$defaultFn(() => false),
+  requestId: integer("request_id").references(() => sponsorshipRequests.id, { onDelete: "set null" }),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .$defaultFn(() => new Date())
+    .notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp" })
+    .$defaultFn(() => new Date())
+    .notNull(),
+});
+
 // Relations
 export const userRelations = relations(user, ({ many }) => ({
   products: many(products),
@@ -230,6 +298,9 @@ export const userRelations = relations(user, ({ many }) => ({
   transactions: many(transactions),
   notifications: many(notifications),
   withdrawals: many(withdrawals),
+  contactMessages: many(contactMessages),
+  sponsorshipRequests: many(sponsorshipRequests),
+  activeSponsors: many(activeSponsors),
 }));
 
 export const productsRelations = relations(products, ({ one, many }) => ({
