@@ -145,7 +145,12 @@ async function main() {
         },
     ];
 
-    await db.insert(contactMessages).values(sampleContactMessages);
+    const formattedMessages = sampleContactMessages.map(msg => ({
+        ...msg,
+        status: msg.status as "pending" | "resolved",
+    }));
+
+    await db.insert(contactMessages).values(formattedMessages as any);
     
     console.log('✅ Contact messages seeder completed successfully');
 }
