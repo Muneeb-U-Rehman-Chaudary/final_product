@@ -45,7 +45,19 @@ export async function GET(request: NextRequest) {
     const offset = parseInt(searchParams.get('offset') ?? '0');
 
     // Build base query for vendors
-    let vendorQuery = db
+    const vendorConditions = [eq(user.role, 'vendor')];
+    if (search) {
+      const searchTerm = `%${search}%`;
+      vendorConditions.push(
+        or(
+          like(user.name, searchTerm),
+          like(user.email, searchTerm),
+          like(user.storeName, searchTerm)
+        ) as any
+      );
+    }
+
+    const vendors = await db
       .select({
         id: user.id,
         name: user.name,
@@ -58,42 +70,17 @@ export async function GET(request: NextRequest) {
         createdAt: user.createdAt,
       })
       .from(user)
-      .where(eq(user.role, 'vendor'));
-
-    // Apply search filter if provided
-    if (search) {
-      const searchTerm = `%${search}%`;
-      vendorQuery = vendorQuery.where(
-        or(
-          like(user.name, searchTerm),
-          like(user.email, searchTerm),
-          like(user.storeName, searchTerm)
-        )
-      );
-    }
+      .where(sql.join(vendorConditions, sql` AND `))
+      .limit(limit)
+      .offset(offset);
 
     // Get total count for pagination
-    let countQuery = db
+    const [totalResult] = await db
       .select({ count: sql<number>`count(*)` })
       .from(user)
-      .where(eq(user.role, 'vendor'));
-
-    if (search) {
-      const searchTerm = `%${search}%`;
-      countQuery = countQuery.where(
-        or(
-          like(user.name, searchTerm),
-          like(user.email, searchTerm),
-          like(user.storeName, searchTerm)
-        )
-      );
-    }
-
-    const [totalResult] = await countQuery;
+      .where(sql.join(vendorConditions, sql` AND `));
+    
     const total = totalResult?.count ?? 0;
-
-    // Execute vendor query with pagination
-    const vendors = await vendorQuery.limit(limit).offset(offset);
 
     // Get product counts for each vendor
     const vendorsWithCounts = await Promise.all(
