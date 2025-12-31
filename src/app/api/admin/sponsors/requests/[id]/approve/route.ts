@@ -80,7 +80,7 @@ export async function POST(
       .limit(1);
     const nextSponsorId = lastActiveSponsor ? lastActiveSponsor.sponsorId + 1 : 1;
 
-    const activeSponsorData = {
+    const activeSponsorData: any = {
       type: sponsorshipRequest.type,
       vendorId: sponsorshipRequest.vendorId,
       tier: finalTier,
