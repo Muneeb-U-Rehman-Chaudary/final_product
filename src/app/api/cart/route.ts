@@ -102,9 +102,9 @@ export async function POST(request: NextRequest) {
       if (!userCart) {
         userCart = await Cart.create({
           userId: session.user.id,
-          items: [{ productId: Number(productId), addedAt: new Date() }]
+          items: [{ productId: Number(productId), addedAt: new Date().toISOString() }]
         });
-        return NextResponse.json({ cart: userCart.toObject() }, { status: 201 });
+        return NextResponse.json({ cart: (userCart as any).toObject() }, { status: 201 });
       }
 
       const items = userCart.items || [];
@@ -114,13 +114,13 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Item already in cart' }, { status: 400 });
       }
 
-      items.push({ productId: Number(productId), addedAt: (new Date() as any) });
+      items.push({ productId: Number(productId), addedAt: new Date().toISOString() as any });
 
       userCart.items = items;
       userCart.updatedAt = new Date();
       await userCart.save();
 
-      return NextResponse.json({ cart: userCart.toObject() });
+      return NextResponse.json({ cart: (userCart as any).toObject() });
     } catch (error) {
       console.error('Error adding to cart:', error);
       return NextResponse.json({ error: 'Failed to add to cart' }, { status: 500 });
