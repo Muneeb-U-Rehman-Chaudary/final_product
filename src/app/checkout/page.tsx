@@ -1,7 +1,11 @@
 import { Suspense } from "react";
-import CheckoutClient from "./CheckoutClient";
+import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import { Skeleton } from "@/components/ui/skeleton";
+
+const CheckoutClient = dynamic(() => import("./CheckoutClient"), {
+  ssr: true,
+});
 
 export default function CheckoutPage() {
   return (
