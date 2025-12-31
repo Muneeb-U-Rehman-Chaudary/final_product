@@ -12,8 +12,8 @@ export async function POST(
     await connectDB();
 
     // Authenticate and verify admin role
-    const session = await getSession(request);
-    if (!session || !('user' in session)) {
+    const session = await getSession(request) as any;
+    if (!session || !session.user) {
       return NextResponse.json(
         { error: 'Authentication required', code: 'UNAUTHORIZED' },
         { status: 401 }
