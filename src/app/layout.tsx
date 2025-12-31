@@ -1,34 +1,19 @@
-"use client";
-
 import "./globals.css";
-import { ReactNode, useEffect, useState } from "react";
-import { VisualEditsMessenger } from "orchids-visual-edits";
-import ErrorReporter from "@/components/ErrorReporter";
+import { ReactNode } from "react";
 import Script from "next/script";
-import { SessionProvider } from "@/contexts/SessionContext";
-import NextTopLoader from "nextjs-toploader";
-import { Toaster } from "sonner";
-import { ReduxProvider } from "@/providers/redux-provider";
-import { QueryProvider } from "@/providers/query-provider";
-import { Cart } from "@/components/Cart";
-import { usePathname } from "next/navigation";
+import { ClientWrapper } from "@/components/ClientWrapper";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "DigiVerse - Premium Digital Marketplace",
+  description: "Discover high-quality WordPress themes, plugins, templates, and digital designs from top vendors worldwide.",
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
-  const pathname = usePathname();
-  const [loading, setLoading] = useState(false);
-
-  // Trigger loader on path change
-  useEffect(() => {
-    if (!pathname) return;
-    setLoading(true);
-    const timer = setTimeout(() => setLoading(false), 400); // show loader for 400ms
-    return () => clearTimeout(timer);
-  }, [pathname]);
-
   return (
     <html lang="en">
       <body className="antialiased">
@@ -38,8 +23,8 @@ export default function RootLayout({
           strategy="afterInteractive"
           data-orchids-project-id="3cc5654b-71f4-4824-aa21-e44da85ccea6"
         />
-        <ErrorReporter />
         <Script
+          id="route-messenger"
           src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/scripts//route-messenger.js"
           strategy="afterInteractive"
           data-target-origin="*"
@@ -47,31 +32,9 @@ export default function RootLayout({
           data-include-search-params="true"
           data-only-in-iframe="true"
           data-debug="true"
-          data-custom-data='{"appName": "YourApp", "version": "1.0.0", "greeting": "hi"}'
+          data-custom-data='{"appName": "DigiVerse", "version": "1.0.0", "greeting": "hi"}'
         />
-        <QueryProvider>
-          <ReduxProvider>
-            <SessionProvider>
-              {/* Top Loader */}
-              <NextTopLoader
-                color="var(--primary)"
-                initialPosition={0.08}
-                crawlSpeed={200}
-                height={5}
-                crawl
-                showSpinner={false}
-                easing="ease"
-                speed={200}
-                shadow="0 0 10px var(--primary), 0 0 5px var(--primary)"
-              />
-
-              <Cart />
-              {children}
-              <Toaster position="top-right" richColors />
-            </SessionProvider>
-          </ReduxProvider>
-        </QueryProvider>
-        <VisualEditsMessenger />
+        <ClientWrapper>{children}</ClientWrapper>
       </body>
     </html>
   );
