@@ -437,6 +437,7 @@ export interface ISponsorshipRequest extends Document {
   tier: 'standard' | 'premium';
   monthlyFee: number;
   commission: number;
+  duration?: number;
   status: 'pending' | 'approved' | 'rejected';
   message?: string;
   requestDate: Date;
