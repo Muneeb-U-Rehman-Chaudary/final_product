@@ -43,7 +43,6 @@ export function ClientWrapper({ children }: { children: ReactNode }) {
           <Cart />
           {children}
           <Toaster position="top-right" richColors />
-          <VisualEditsMessenger />
         </SessionProvider>
       </ReduxProvider>
     </QueryProvider>
