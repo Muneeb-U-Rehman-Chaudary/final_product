@@ -13,7 +13,7 @@ export async function POST(
 
     // Authentication check
     const session = await getSession(request);
-    if (!session) {
+    if (!session || !('user' in session)) {
       return NextResponse.json(
         { error: 'Authentication required', code: 'UNAUTHORIZED' },
         { status: 401 }
