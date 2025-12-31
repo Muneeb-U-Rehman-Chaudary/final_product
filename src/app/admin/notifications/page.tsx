@@ -33,7 +33,7 @@ export default function AdminNotificationsPage() {
   };
 
   const handleMarkAllAsRead = async () => {
-    await markAllAsReadMutation.mutateAsync();
+    await markAllAsReadMutation.mutateAsync({});
   };
 
   const getTypeIcon = (type: string) => {
