@@ -56,11 +56,12 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 import { 
   useAdminContactsList, 
   useDeleteAdminContact, 
   useReplyToContact, 
-  useSendMessageToUser,
+  useMessageUser,
   useAdminUsers
 } from "@/hooks/useApi";
 import { toast } from "sonner";
