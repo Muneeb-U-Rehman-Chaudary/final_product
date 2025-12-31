@@ -11,7 +11,9 @@ export async function POST(
     await connectDB();
 
     // Authentication check
-    const session = await getSession(request);
+    const sessionResponse = await getSession(request);
+    const session = 'session' in sessionResponse ? sessionResponse.session : sessionResponse;
+    
     if (!session || !('user' in session)) {
       return NextResponse.json(
         { error: 'Authentication required', code: 'AUTH_REQUIRED' },
@@ -141,7 +143,9 @@ export async function DELETE(
     await connectDB();
 
     // Authentication check
-    const session = await getSession(request);
+    const sessionResponse = await getSession(request);
+    const session = 'session' in sessionResponse ? sessionResponse.session : sessionResponse;
+    
     if (!session || !('user' in session)) {
       return NextResponse.json(
         { error: 'Authentication required', code: 'AUTH_REQUIRED' },
