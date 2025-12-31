@@ -224,11 +224,11 @@ export default function AdminProductsPage() {
                 <TableRow key={product.id}>
                   <TableCell className="font-medium">
                     <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded bg-muted overflow-hidden flex-shrink-0">
-                        {product.images && product.images[0] && (
-                          <img src={product.images[0]} alt="" className="h-full w-full object-cover" />
-                        )}
-                      </div>
+                        <div className="h-10 w-10 rounded bg-muted overflow-hidden flex-shrink-0 relative">
+                          {product.images && product.images[0] && (
+                            <SafeImage src={product.images[0]} alt="" fill className="object-cover" />
+                          )}
+                        </div>
                       <span className="max-w-[200px] truncate">{product.title}</span>
                     </div>
                   </TableCell>
