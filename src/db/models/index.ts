@@ -160,11 +160,10 @@ const transactionSchema = new mongoose.Schema({
   withdrawalDetails: String
 });
 
-transactionSchema.pre('save', async function(next) {
+transactionSchema.pre('save', async function() {
   if (this.isNew && !this.transactionId) {
     this.transactionId = await getNextSequence('transactionId');
   }
-  next();
 });
 
 export const Transaction = mongoose.models.Transaction || mongoose.model('Transaction', transactionSchema);
