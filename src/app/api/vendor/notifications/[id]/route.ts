@@ -118,9 +118,10 @@ export async function DELETE(
     }
 
     const { id } = await params;
+    const notificationId = parseInt(id);
 
     const notification = await Notification.findOneAndDelete({
-      notificationId: id,
+      notificationId,
       userId: user.id
     });
 
