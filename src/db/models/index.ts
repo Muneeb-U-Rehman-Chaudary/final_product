@@ -208,10 +208,10 @@ const withdrawalSchema = new mongoose.Schema({
   status: { type: String, default: 'pending' },
   requestDate: { type: Date, default: Date.now },
   processedDate: Date,
-    bankDetails: { type: String, required: true },
-    notes: String,
-    proofImage: String
-  });
+  bankDetails: { type: String, required: true },
+  notes: String,
+  proofImage: String
+});
 
 withdrawalSchema.pre('save', async function() {
   if (this.isNew && !this.withdrawalId) {
@@ -239,11 +239,10 @@ const sponsorshipRequestSchema = new mongoose.Schema({
   adminNotes: String
 });
 
-sponsorshipRequestSchema.pre('save', async function(next) {
+sponsorshipRequestSchema.pre('save', async function() {
   if (this.isNew && !this.requestId) {
     this.requestId = await getNextSequence('requestId');
   }
-  next();
 });
 
 export const SponsorshipRequest = mongoose.models.SponsorshipRequest || mongoose.model('SponsorshipRequest', sponsorshipRequestSchema);
@@ -265,11 +264,10 @@ const activeSponsorSchema = new mongoose.Schema({
   updatedAt: { type: Date, default: Date.now }
 });
 
-activeSponsorSchema.pre('save', async function(next) {
+activeSponsorSchema.pre('save', async function() {
   if (this.isNew && !this.sponsorId) {
     this.sponsorId = await getNextSequence('sponsorId');
   }
-  next();
 });
 
 export const ActiveSponsor = mongoose.models.ActiveSponsor || mongoose.model('ActiveSponsor', activeSponsorSchema);
@@ -283,11 +281,10 @@ const platformSettingsSchema = new mongoose.Schema({
   updatedBy: String
 });
 
-platformSettingsSchema.pre('save', async function(next) {
+platformSettingsSchema.pre('save', async function() {
   if (this.isNew && !this.settingId) {
     this.settingId = await getNextSequence('settingId');
   }
-  next();
 });
 
 export const PlatformSettings = mongoose.models.PlatformSettings || mongoose.model('PlatformSettings', platformSettingsSchema);
@@ -308,11 +305,10 @@ const contactMessageSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
-contactMessageSchema.pre('save', async function(next) {
+contactMessageSchema.pre('save', async function() {
   if (this.isNew && !this.messageId) {
     this.messageId = await getNextSequence('messageId');
   }
-  next();
 });
 
 export const ContactMessage = mongoose.models.ContactMessage || mongoose.model('ContactMessage', contactMessageSchema);
