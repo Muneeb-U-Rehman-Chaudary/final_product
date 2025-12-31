@@ -192,11 +192,10 @@ const notificationSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
-notificationSchema.pre('save', async function(next) {
+notificationSchema.pre('save', async function() {
   if (this.isNew && !this.notificationId) {
     this.notificationId = await getNextSequence('notificationId');
   }
-  next();
 });
 
 export const Notification = mongoose.models.Notification || mongoose.model('Notification', notificationSchema);
