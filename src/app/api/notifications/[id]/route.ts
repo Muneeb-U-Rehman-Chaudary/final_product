@@ -40,7 +40,7 @@ export async function PATCH(
       );
     }
 
-    if (notification.userId !== session.user.id) {
+    if (notification.userId !== (session.user as any).id) {
       return NextResponse.json(
         {
           error: 'You do not have permission to update this notification',
@@ -115,7 +115,7 @@ export async function DELETE(
       );
     }
 
-    if (notification.userId !== session.user.id) {
+    if (notification.userId !== (session.user as any).id) {
       return NextResponse.json(
         {
           error: 'You do not have permission to delete this notification',
