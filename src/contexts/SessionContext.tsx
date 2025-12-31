@@ -8,6 +8,7 @@ import { toast } from "sonner";
 interface SessionContextType {
   data: any;
   isLoading: boolean;
+  isPending: boolean;
   logout: () => void;
   refetch: () => void;
 }
@@ -28,7 +29,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <SessionContext.Provider value={{ data, isLoading, logout, refetch }}>
+    <SessionContext.Provider value={{ data, isLoading, isPending: isLoading, logout, refetch }}>
       {children}
     </SessionContext.Provider>
   );
