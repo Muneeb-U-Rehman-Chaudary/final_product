@@ -1,6 +1,6 @@
 import connectDB from './mongodb';
 import { User, Product, Order, Review, Transaction, Notification } from './models';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 async function seedDatabase() {
   try {
