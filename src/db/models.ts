@@ -401,6 +401,7 @@ export interface IWithdrawal extends Document {
   processedDate?: Date;
   bankDetails: any;
   notes?: string;
+  proofImage?: string;
 }
 
 const WithdrawalSchema = new Schema<IWithdrawal>({
@@ -415,7 +416,8 @@ const WithdrawalSchema = new Schema<IWithdrawal>({
   requestDate: { type: Date, default: Date.now },
   processedDate: Date,
   bankDetails: { type: Schema.Types.Mixed, required: true },
-  notes: String
+  notes: String,
+  proofImage: String
 });
 
 WithdrawalSchema.pre('save', async function() {
