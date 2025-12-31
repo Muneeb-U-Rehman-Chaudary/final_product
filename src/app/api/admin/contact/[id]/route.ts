@@ -30,20 +30,20 @@ export async function GET(
     }
 
     return NextResponse.json({
-      message: {
-        id: message.messageId,
-        name: message.name,
-        email: message.email,
-        subject: message.subject,
-        message: message.message,
-        type: message.type,
-        status: message.status,
-        userId: message.userId || null,
-        reply: message.reply || null,
-        repliedAt: message.repliedAt || null,
-        repliedBy: message.repliedBy || null,
-        createdAt: message.createdAt
-      }
+        message: {
+          id: message.messageId,
+          name: message.name,
+          email: message.email,
+          subject: message.subject,
+          message: message.message,
+          type: (message as any).type,
+          status: message.status,
+          userId: message.userId || null,
+          reply: message.reply || null,
+          repliedAt: message.repliedAt || null,
+          repliedBy: message.repliedBy || null,
+          createdAt: message.createdAt
+        }
     });
   } catch (error: any) {
     console.error("Contact message fetch error:", error);
