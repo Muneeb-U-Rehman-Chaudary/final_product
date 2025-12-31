@@ -828,10 +828,10 @@ export function useReplyToContact() {
 
 export function useMessageUser() {
   return useMutation({
-    mutationFn: ({ userId, subject, content }: { userId: string | number; subject: string; content: string }) =>
+    mutationFn: ({ userId, subject, content, type }: { userId: string | number; subject: string; content: string; type?: string }) =>
       fetchWithAuth(`/api/admin/users/${userId}/message`, {
         method: "POST",
-        body: JSON.stringify({ subject, message: content }),
+        body: JSON.stringify({ subject, message: content, type }),
       }),
     onSuccess: () => {
       toast.success("Message sent to user");
