@@ -1,7 +1,11 @@
 import { Suspense } from "react";
-import ProductsClient from "./ProductsClient";
+import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import { Skeleton } from "@/components/ui/skeleton";
+
+const ProductsClient = dynamic(() => import("./ProductsClient"), {
+  ssr: true,
+});
 
 export default function ProductsPage() {
   return (
