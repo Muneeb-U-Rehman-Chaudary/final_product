@@ -66,9 +66,10 @@ export async function PUT(
     }
 
     const { id } = await params;
+    const notificationId = parseInt(id);
 
     const notification = await Notification.findOneAndUpdate(
-      { notificationId: id, userId: user.id },
+      { notificationId, userId: user.id },
       { $set: { read: true } },
       { new: true }
     ).lean();
