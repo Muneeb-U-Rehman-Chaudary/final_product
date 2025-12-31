@@ -133,7 +133,7 @@ export default function AdminContactPage() {
     messageUserMutation.mutate({
       userId: selectedUser.id,
       subject: messageSubject,
-      message: messageContent,
+      content: messageContent,
       // @ts-ignore - Backend supports type
       type: messageType,
     }, {
