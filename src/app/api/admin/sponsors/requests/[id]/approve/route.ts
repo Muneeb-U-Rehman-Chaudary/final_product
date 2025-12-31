@@ -11,7 +11,7 @@ export async function POST(
     await connectDB();
 
     const session = await getSession(request);
-    if (!session?.user) {
+    if (!session || !('user' in session)) {
       return NextResponse.json(
         { error: 'Authentication required', code: 'UNAUTHORIZED' },
         { status: 401 }
