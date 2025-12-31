@@ -38,7 +38,7 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const searchRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLFormElement>(null);
   const dispatch = useAppDispatch();
   const { itemCount: cartItemCount } = useCart();
   const { unreadCount } = useNotifications();
