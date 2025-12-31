@@ -18,9 +18,10 @@ export async function GET(
     }
 
     const { id } = await params;
+    const notificationId = parseInt(id);
     
     const notification = await Notification.findOne({ 
-      notificationId: id,
+      notificationId,
       userId: user.id 
     }).lean();
 
