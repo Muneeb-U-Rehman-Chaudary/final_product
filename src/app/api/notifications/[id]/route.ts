@@ -11,7 +11,7 @@ export async function PATCH(
     await connectDB();
 
     const session = await getSession(request);
-    if (!session?.user?.id) {
+    if (!session || !('user' in session) || !session.user?.id) {
       return NextResponse.json(
         { error: 'Authentication required', code: 'UNAUTHORIZED' },
         { status: 401 }
@@ -84,7 +84,7 @@ export async function DELETE(
     await connectDB();
 
     const session = await getSession(request);
-    if (!session?.user?.id) {
+    if (!session || !('user' in session) || !session.user?.id) {
       return NextResponse.json(
         { error: 'Authentication required', code: 'UNAUTHORIZED' },
         { status: 401 }
