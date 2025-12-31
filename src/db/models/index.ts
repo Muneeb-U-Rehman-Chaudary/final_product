@@ -139,11 +139,10 @@ const reviewSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
-reviewSchema.pre('save', async function(next) {
+reviewSchema.pre('save', async function() {
   if (this.isNew && !this.reviewId) {
     this.reviewId = await getNextSequence('reviewId');
   }
-  next();
 });
 
 export const Review = mongoose.models.Review || mongoose.model('Review', reviewSchema);
