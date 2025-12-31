@@ -73,12 +73,12 @@ export async function getSession(request: NextRequest) {
       session: {
         user: {
           id: user._id.toString(),
-          email: user.email,
-          name: user.name,
-          role: user.role,
-          image: user.image,
-          storeName: user.storeName,
-          emailVerified: user.emailVerified
+          email: user.email as string,
+          name: user.name as string,
+          role: user.role as 'admin' | 'vendor' | 'customer',
+          image: user.image as string | undefined,
+          storeName: user.storeName as string | undefined,
+          emailVerified: user.emailVerified as boolean
         }
       }
     };
