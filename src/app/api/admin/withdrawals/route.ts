@@ -55,12 +55,12 @@ export async function GET(request: NextRequest) {
     const allWithdrawalsForStats = await Withdrawal.find({}).lean();
     const stats = {
       total: allWithdrawalsForStats.length,
-      pending: allWithdrawalsForStats.filter((w) => w.status === "pending").length,
-      approved: allWithdrawalsForStats.filter((w) => w.status === "approved").length,
-      completed: allWithdrawalsForStats.filter((w) => w.status === "completed").length,
-      rejected: allWithdrawalsForStats.filter((w) => w.status === "rejected").length,
+      pending: allWithdrawalsForStats.filter((w) => w.status === "pending" as any).length,
+      approved: allWithdrawalsForStats.filter((w) => w.status === "approved" as any).length,
+      completed: allWithdrawalsForStats.filter((w) => w.status === "completed" as any).length,
+      rejected: allWithdrawalsForStats.filter((w) => w.status === "rejected" as any).length,
       totalAmount: allWithdrawalsForStats
-        .filter((w) => w.status === "completed" || w.status === "approved")
+        .filter((w) => w.status === ("completed" as any) || w.status === ("approved" as any))
         .reduce((sum, w) => sum + w.amount, 0),
     };
 
