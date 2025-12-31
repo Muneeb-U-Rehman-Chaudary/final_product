@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
     
     let productMap = new Map();
     if (productIds.length > 0) {
-      const products = await Product.find({ productId: { $in: productIds } }).select('productId title').lean();
+      const products = await Product.find({ productId: { $in: productIds as any } }).select('productId title').lean();
       productMap = new Map(products.map(p => [p.productId, p.title]));
     }
 
