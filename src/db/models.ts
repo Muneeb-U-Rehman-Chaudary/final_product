@@ -368,6 +368,7 @@ export interface INotification extends Document {
   message: string;
   read: boolean;
   link?: string;
+  data?: any;
   createdAt: Date;
 }
 
@@ -378,6 +379,7 @@ const NotificationSchema = new Schema<INotification>({
   message: { type: String, required: true },
   read: { type: Boolean, default: false },
   link: String,
+  data: Schema.Types.Mixed,
   createdAt: { type: Date, default: Date.now }
 });
 
