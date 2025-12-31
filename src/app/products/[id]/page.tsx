@@ -190,23 +190,23 @@ export default function ProductDetailPage() {
               </Button>
             </div>
 
-            {images.length > 1 && (
-              <div className="grid grid-cols-4 gap-2">
-                {images.map((img, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setSelectedImage(idx)}
-                    className={`relative aspect-square rounded overflow-hidden border ${
-                      selectedImage === idx
-                        ? "border-primary ring-2 ring-primary/20"
-                        : "border-transparent"
-                    }`}
-                  >
-                    <SafeImage src={img} alt="" fill className="object-cover" />
-                  </button>
-                ))}
-              </div>
-            )}
+              {images.length > 1 && (
+                <div className="grid grid-cols-4 gap-2">
+                  {images.map((img: string, idx: number) => (
+                    <button
+                      key={idx}
+                      onClick={() => setSelectedImage(idx)}
+                      className={`relative aspect-square rounded overflow-hidden border ${
+                        selectedImage === idx
+                          ? "border-primary ring-2 ring-primary/20"
+                          : "border-transparent"
+                      }`}
+                    >
+                      <SafeImage src={img} alt="" fill className="object-cover" />
+                    </button>
+                  ))}
+                </div>
+              )}
           </div>
 
           {/* RIGHT — DETAILS */}
