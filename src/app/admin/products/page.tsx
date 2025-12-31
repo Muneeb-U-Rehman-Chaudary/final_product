@@ -44,6 +44,7 @@ import {
   DialogTitle 
 } from "@/components/ui/dialog";
 import ImageUpload from "@/components/ImageUpload";
+import SafeImage from "@/components/SafeImage";
 import { 
   useAdminProducts, 
   useAdminUsers, 
