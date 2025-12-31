@@ -51,7 +51,23 @@ export async function getCurrentUser(request: NextRequest) {
   }
 }
 
-export async function getSession(request: NextRequest) {
+export type SessionUser = {
+  id: string;
+  email: string;
+  name: string;
+  role: 'admin' | 'vendor' | 'customer';
+  image?: string;
+  storeName?: string;
+  emailVerified?: boolean;
+};
+
+export type SessionResult = {
+  session: {
+    user: SessionUser;
+  } | null;
+};
+
+export async function getSession(request: NextRequest): Promise<SessionResult> {
   try {
     const authHeader = request.headers.get('authorization');
     
