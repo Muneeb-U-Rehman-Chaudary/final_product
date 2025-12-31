@@ -92,11 +92,10 @@ const productSchema = new mongoose.Schema({
   updatedAt: { type: Date, default: Date.now }
 });
 
-productSchema.pre('save', async function(next) {
+productSchema.pre('save', async function() {
   if (this.isNew && !this.productId) {
     this.productId = await getNextSequence('productId');
   }
-  next();
 });
 
 export const Product = mongoose.models.Product || mongoose.model('Product', productSchema);
