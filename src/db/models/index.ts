@@ -119,11 +119,10 @@ const orderSchema = new mongoose.Schema({
   downloadStatus: String
 });
 
-orderSchema.pre('save', async function(next) {
+orderSchema.pre('save', async function() {
   if (this.isNew && !this.orderId) {
     this.orderId = await getNextSequence('orderId');
   }
-  next();
 });
 
 export const Order = mongoose.models.Order || mongoose.model('Order', orderSchema);
