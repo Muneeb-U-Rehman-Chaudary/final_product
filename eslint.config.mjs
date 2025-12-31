@@ -10,14 +10,14 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals"),
-  {
+  ...compat.config({
+    extends: ["next/core-web-vitals"],
     rules: {
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": "off",
       "@next/next/no-img-element": "off",
     },
-  },
+  }),
 ];
 
 export default eslintConfig;
