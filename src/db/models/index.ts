@@ -213,11 +213,10 @@ const withdrawalSchema = new mongoose.Schema({
     proofImage: String
   });
 
-withdrawalSchema.pre('save', async function(next) {
+withdrawalSchema.pre('save', async function() {
   if (this.isNew && !this.withdrawalId) {
     this.withdrawalId = await getNextSequence('withdrawalId');
   }
-  next();
 });
 
 export const Withdrawal = mongoose.models.Withdrawal || mongoose.model('Withdrawal', withdrawalSchema);
