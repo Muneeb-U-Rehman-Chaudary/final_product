@@ -145,7 +145,16 @@ async function main() {
         },
     ];
 
-    await db.insert(sponsorshipRequests).values(sampleSponsorshipRequests);
+    const formattedRequests = sampleSponsorshipRequests.map(r => ({
+        ...r,
+        type: r.type as "vendor" | "product",
+        tier: r.tier as "standard" | "premium",
+        status: r.status as "pending" | "approved" | "rejected",
+        requestDate: new Date(r.requestDate),
+        processedDate: r.processedDate ? new Date(r.processedDate) : null,
+    }));
+
+    await db.insert(sponsorshipRequests).values(formattedRequests as any);
     
     console.log('✅ Sponsorship requests seeder completed successfully');
 }
