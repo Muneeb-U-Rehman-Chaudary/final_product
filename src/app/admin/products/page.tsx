@@ -342,29 +342,29 @@ export default function AdminProductsPage() {
               </Select>
             </div>
 
-            <div className="grid gap-2">
-              <Label>Images</Label>
-              <div className="grid grid-cols-3 gap-4">
-                {productForm.images.map((img, i) => (
-                  <div key={i} className="relative aspect-square">
-                    <img src={img} alt="" className="w-full h-full object-cover rounded border" />
-                    <Button 
-                      size="icon" 
-                      variant="destructive" 
-                      className="absolute -top-2 -right-2 h-6 w-6"
-                      onClick={() => setProductForm({ ...productForm, images: productForm.images.filter((_, idx) => idx !== i) })}
-                    >
-                      <XCircle className="h-4 w-4" />
-                    </Button>
-                  </div>
-                ))}
-                {productForm.images.length < 5 && (
-                  <ImageUpload 
-                    onChange={(url) => setProductForm({ ...productForm, images: [...productForm.images, url] })} 
-                  />
-                )}
+                    <div className="grid gap-2">
+                <Label>Images</Label>
+                <div className="grid grid-cols-3 gap-4">
+                  {productForm.images.map((img, i) => (
+                    <div key={i} className="relative aspect-square">
+                      <SafeImage src={img} alt="" fill className="object-cover rounded border" />
+                      <Button 
+                        size="icon" 
+                        variant="destructive" 
+                        className="absolute -top-2 -right-2 h-6 w-6 z-10"
+                        onClick={() => setProductForm({ ...productForm, images: productForm.images.filter((_, idx) => idx !== i) })}
+                      >
+                        <XCircle className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ))}
+                  {productForm.images.length < 5 && (
+                    <ImageUpload 
+                      onChange={(url) => setProductForm({ ...productForm, images: [...productForm.images, url] })} 
+                    />
+                  )}
+                </div>
               </div>
-            </div>
 
             <div className="grid gap-2">
               <Label>Download URL</Label>
