@@ -87,8 +87,6 @@ export async function POST(
       endDate,
       status: 'active',
       sponsorId,
-      createdAt: new Date(),
-      updatedAt: new Date()
     });
 
     // If type is vendor, update User sponsored flag
