@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSession } from "@/hooks/useSession";
 import { useRouter, useSearchParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
@@ -30,7 +30,7 @@ import SafeImage from "@/components/SafeImage";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 
-export default function CheckoutPage() {
+function CheckoutContent() {
   const { data: session, isPending } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -530,5 +530,26 @@ export default function CheckoutPage() {
       </div>
       <Footer />
     </>
+  );
+}
+
+export default function CheckoutPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-white">
+        <Navbar />
+        <div className="container mx-auto px-4 py-20 text-center">
+          <Skeleton className="h-12 w-64 mx-auto mb-8" />
+          <div className="grid lg:grid-cols-3 gap-12">
+            <div className="lg:col-span-2 space-y-6">
+              <Skeleton className="h-[400px] w-full rounded-2xl" />
+            </div>
+            <Skeleton className="h-[400px] w-full rounded-2xl" />
+          </div>
+        </div>
+      </div>
+    }>
+      <CheckoutContent />
+    </Suspense>
   );
 }
