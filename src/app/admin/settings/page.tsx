@@ -31,14 +31,15 @@ export default function AdminSettingsPage() {
       router.push("/login");
     } else if (session?.user?.role !== "admin") {
       router.push("/");
-    } else if (session?.user) {
-      setAdminProfile({
-        name: session.user.name || "",
-        email: session.user.email || "",
-        image: session.user.image || ""
-      });
-    }
-  }, [session, isPending, router]);
+      } else if (session?.user) {
+        setAdminProfile({
+          name: session.user.name || "",
+          email: session.user.email || "",
+          image: session.user.image || "",
+          password: ""
+        });
+      }
+    }, [session, isPending, router]);
 
   useEffect(() => {
     if (settingsData?.settings) {
