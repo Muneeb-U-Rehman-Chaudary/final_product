@@ -7,7 +7,8 @@ export async function PUT(request: NextRequest) {
   try {
     await connectDB();
     
-    const { session } = await getSession(request);
+    const sessionResponse = await getSession(request);
+    const session = 'session' in sessionResponse ? sessionResponse.session : sessionResponse;
     
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -54,7 +55,8 @@ export async function GET(request: NextRequest) {
   try {
     await connectDB();
     
-    const { session } = await getSession(request);
+    const sessionResponse = await getSession(request);
+    const session = 'session' in sessionResponse ? sessionResponse.session : sessionResponse;
     
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
